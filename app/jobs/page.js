@@ -1,5 +1,5 @@
+import JobCard from "@/components/JobCard";
 import fetchFun from "@/utils/fetchFunction.js";
-import JobCard from "../../components/JobCard.js";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
