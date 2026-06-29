@@ -3,6 +3,7 @@ import { generateSchema } from "@/utils/generateJsonLd.js";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from 'next/link';
+import jobsData from "../../../data/jobs.json"
 import { MapPin, Briefcase, Calendar, DollarSign, ArrowLeft, Building2 } from 'lucide-react';
 export const dynamic = 'force-dynamic';
 export async function generateStaticParams(){
@@ -26,6 +27,9 @@ export async function generateMetadata({params}) { // generate dynamic meta data
 export default async function jobDetails({params}){
     const {slug} = await params 
     const job = await fetchFun(slug)
+    if(!job) {
+        job = jobsData.jobs.find(j => j.slug === slug || j.id === slug);
+    }
     if(!job) { notFound()} // here i handled invalid routes using notFound as you want in (Bonus section)
     const schemaOfJob = generateSchema(job)
     return(
