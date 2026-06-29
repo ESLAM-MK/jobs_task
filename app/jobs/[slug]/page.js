@@ -26,7 +26,7 @@ export async function generateMetadata({params}) { // generate dynamic meta data
 }
 export default async function jobDetails({params}){
     const {slug} = await params 
-    const job = await fetchFun(slug)
+    let job = await fetchFun(slug)
     if(!job) {
         job = jobsData.jobs.find(j => j.slug === slug || j.id === slug);
     }
