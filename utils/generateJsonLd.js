@@ -12,7 +12,6 @@ export async function generateSchema(job) {
     "datePosted": job.datePosted || "",
     "validThrough": job.validThrough || "",
     "employmentType": empType, 
-    
     "hiringOrganization": {
       "@type": "Organization",
       "name": job.company || "",

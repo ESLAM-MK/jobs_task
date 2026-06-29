@@ -31,8 +31,8 @@ export default async function jobDetails({params}){
         job = jobsData.jobs.find(j => j.slug === slug || j.id === slug);
     }
     if(!job) { notFound()} // here i handled invalid routes using notFound as you want in (Bonus section)
-    const schemaOfJob = generateSchema(job)
-    return(
+const schemaOfJob = await generateSchema(job)
+        return(
         <>
         {/* {console.log(job)} */}
         {schemaOfJob && (<script type="application/ld+json" dangerouslySetInnerHTML={{__html :JSON.stringify(schemaOfJob)}}/>) } 
