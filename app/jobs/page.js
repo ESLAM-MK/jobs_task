@@ -9,7 +9,7 @@ export const metadata = { // i make it static because it's not dynamic routing
 };
 export default async function getAllJobs() {
   const jobs = await fetchFun()
-  console.log(jobs)
+  // console.log(jobs)
   if (!jobs) {
     return (
       <div className="mx-1.5 flex justify-center">
