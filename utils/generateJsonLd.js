@@ -1,35 +1,40 @@
-export async function  generateSchema(job){ // dynamic schema generator
- if(!job){
-    return null
- }
- return {
-    "@context":"https://schema.org",
+export async function generateSchema(job) {
+  if (!job) return null;
+  const empType = job.employmentType 
+    ? job.employmentType.toUpperCase().replace("-", "_").replace(" ", "_") : "FULL_TIME";
+  const countryCode = job.location && job.location.toLowerCase().includes("uae") ? "AE" : "EG";
+
+  return {
+    "@context": "https://schema.org",
     "@type": "JobPosting",
-    "title": job.title ? job.title : "", // job title
-    "description" :job.description ? job.description : "" , //description of the job
-    "datePosted": job.datePosted ? job.datePosted  : "", // posting date
-    "validThrough" : job.validThrough ?job.validThrough:"", // will closed at 
-    "employmentType": job.employmentType ? job.employmentType:"", // type of employment
+    "title": job.title || "",
+    "description": job.description || "",
+    "datePosted": job.datePosted || "",
+    "validThrough": job.validThrough || "",
+    "employmentType": empType, 
+    
     "hiringOrganization": {
-        "@type":"Organization",
-        "name": job.company ? job.company :"" , // organization name
-        "logo" :job.companyLogo ? job.companyLogo :"", // organization logo
-        "sameAs" :job.website ?job.website :"" // website
+      "@type": "Organization",
+      "name": job.company || "",
+      "logo": job.companyLogo ? `https://jobtask.vercel.app${job.companyLogo}` : "",
+      "sameAs": job.website || ""
     },
-    "jobLocation":{
-        "@type":"Place",
-        "address" : {
-            "@type": "PostalAddress",
-            "addressLocality": job.location?job.location:"" // location of the job
-        }
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": job.location || "",
+        "addressCountry": countryCode 
+      }
     },
-    "baseSalary": (job.salary&&job.salary.value)?{
-        "@type":"MonetaryAmount",
-        "currency": job.salary.currency ? job.salary.currency :"", // currency of the job
-        "value" : {
-            "@type":"QuantitativeValue",
-            "value": job.salary.value, // value of the salary
-             "unitText":"MONTH" // that means that this value will be for this period
-    }}:undefined
- }
+    "baseSalary": (job.salary && job.salary.value) ? {
+      "@type": "MonetaryAmount",
+      "currency": job.salary.currency || "EGP",
+      "value": {
+        "@type": "QuantitativeValue",
+        "value": job.salary.value,
+        "unitText": "MONTH"
+      }
+    } : undefined
+  };
 }
