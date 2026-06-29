@@ -29,6 +29,7 @@ export default async function jobDetails({params}){
     const schemaOfJob = generateSchema(job)
     return(
         <>
+        {console.log(job)}
         {schemaOfJob && (<script type="application/ld+json" dangerouslySetInnerHTML={{__html :JSON.stringify(schemaOfJob)}}/>) } 
     <div className="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto flex flex-col space-y-6">
