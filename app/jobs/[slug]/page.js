@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from 'next/link';
 import { MapPin, Briefcase, Calendar, DollarSign, ArrowLeft, Building2 } from 'lucide-react';
+export const dynamic = 'force-dynamic';
 export async function generateStaticParams(){
     const allJobs = await fetchFun() // fetch all jobs
     if(!allJobs) return [] // if no jobs return empty array
