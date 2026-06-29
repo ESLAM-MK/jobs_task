@@ -1,9 +1,9 @@
  // i made general function to make it usable for get all jobs and get sepecific job
  const  fetchFun = async(slug)=>{ // dynamic data fetching function 
     try {
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-        const fetchLink = (!slug) ? `${baseUrl}/jobs` : `${baseUrl}/jobs?slug=${slug}`
-        const res = await fetch(fetchLink) // filteration by slug
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const fetchLink = (!slug) ? `${baseUrl}/api/jobs` : `${baseUrl}/api/jobs?slug=${slug}`
+        const res = await fetch(fetchLink,{cache:"no-cache"}) // filteration by slug
         if (!res.ok) return null // if response of fetching not ok it will return null
         const data = await res.json() // else get data 
         if (data.length === 0) return null
