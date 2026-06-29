@@ -1,4 +1,4 @@
-import JobCard from "@/components/jobCard.js";
+import JobCard from "@/components/JobCard.js";
 import fetchFun from "@/utils/fetchFunction.js";
 
 export const metadata = { // i make it static because it's not dynamic routing 

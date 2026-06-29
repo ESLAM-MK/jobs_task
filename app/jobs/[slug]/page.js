@@ -1,5 +1,5 @@
-import JobCard from "@/components/jobCard";
 import fetchFun from "@/utils/fetchFunction.js";
+import { generateSchema } from "@/utils/generateJsonLd.js";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -25,8 +25,10 @@ export default async function jobDetails({params}){
     const {slug} = await params 
     const job = await fetchFun(slug)
     if(!job) { notFound()} // here i handled invalid routes using notFound as you want in (Bonus section)
+    const schemaOfJob = generateSchema(job)
     return(
         <>
+        {schemaOfJob && (<script type="application/ld+json" dangerouslySetInnerHTML={{__html :JSON.stringify(schemaOfJob)}}/>)} // injected as required
         <div>
             <h2>{job.title}</h2>
             <h2>{job.company}</h2>
